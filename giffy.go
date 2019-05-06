@@ -1,4 +1,5 @@
 package main
+
 import (
   "image"
   "image/color"
@@ -10,13 +11,22 @@ import (
 )
 
 // var someColor = color.RGBA{0xRR, 0xGG, 0xBB, 0xff} which is #RRGGBB
-var green = color.RGBA{0x32, 0xCD, 0x32, 0xff}
-var orange = color.RGBA{0xff, 0xA5, 0x00, 0xff}
-var red = color.RGBA{0xff, 0x00, 0x00, 0xff}
-var yellow = color.RGBA{0xff, 0xff, 0x33, 0xff}
-var indigo = color.RGBA{0x4b, 0x00, 0x82, 0xff}
-var blue = color.RGBA{0x1e, 0x90, 0xff, 0xff}
-var grey = color.RGBA{0xa9, 0xa9, 0xa9, 0xff}
+var green = color.RGBA{0x32, 0xCD, 0x32,
+  0xff}
+var orange = color.RGBA{0xff, 0xA5, 0x00,
+  0xff}
+var red = color.RGBA{0xff, 0x00, 0x00,
+  0xff}
+var yellow = color.RGBA{0xff, 0xff, 0x33,
+  0xff}
+var indigo = color.RGBA{0x4b, 0x00, 0x82,
+  0xff}
+var blue = color.RGBA{0x1e, 0x90, 0xff,
+  0xff}
+var grey = color.RGBA{0xa9, 0xa9, 0xa9,
+  0xff}
+var violet = color.RGBA{0xee, 0x82, 0xee,
+  0xff}
 
 var palette = []color.Color{color.Black, color.White,
   green, orange, red, yellow, indigo, blue, grey}
@@ -31,6 +41,7 @@ const (
   indigoIndex = 6
   blueIndex = 7
   greyIndex = 8
+  violetIndex = 9
 )
 
 func main() {
@@ -55,7 +66,8 @@ func lissajous(out io.Writer) {
     for t := 0.0; t < cycles*2*math.Pi; t += res {
       x := math.Sin(t)
       y := math.Sin(t*freq + phase)
-      img.SetColorIndex(size + int(x*size+0.5), size + int(y*size+0.5), greenIndex)
+      currentColor := uint8(i % 9 + 1)
+      img.SetColorIndex(size + int(x*size+0.5), size + int(y*size+0.5), currentColor)
     }
     phase += 0.1
     anim.Delay = append(anim.Delay, delay)
